@@ -86,5 +86,9 @@ class BlobEmailWidget extends WP_Widget {
 } // end class
 
 add_action( 'widgets_init', function(){
+	
+	/*
+	 * Registers the widget 'BlobEmailWidget' in the WordPress dashboard.
+	 */
          register_widget( 'BlobEmailWidget' );
 });
