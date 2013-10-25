@@ -17,8 +17,10 @@ class inbox_status_unread_shortcode {
         add_shortcode('inbox-status-unread', array($this, 'shortcode'));
     }
     
-    public function shortcode(){
-        return "Testing";
+    public function shortcode( $atts ){
+        return "foo";
     }
     
 }
+
+$unread = new inbox_status_unread_shortcode (); 
