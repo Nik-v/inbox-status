@@ -1,6 +1,7 @@
 <?php
 
-class BlobImap {
+class InboxStatusImap
+{
 
     private $mServer;
 
@@ -15,7 +16,11 @@ class BlobImap {
     private $mConnection;
 
     public function __construct() {
+	if( !function_exists( 'imap_open' ) ) {
+    trigger_error( 'Inbox Status plugin will not work without the PHP IMAP extension. See http://php.net/manual/en/book.imap.php', E_USER_ERROR );
+}
     }
+    
 
     public function __set( $name, $value ) {
 	switch( $name ) {
@@ -40,7 +45,9 @@ class BlobImap {
 	if( !is_null( $pass ) )
 	    $this->mPass = $pass;
 	$this->mConnection = imap_open( '{' . $this->mServer . ':993/imap/ssl' . $this->mExtraConConf . '}INBOX', $this->mUser, $this->mPass, OP_READONLY );
-    }
+	
+}
+    
 
     public function count_unread() {
 	return count( imap_search( $this->mConnection, 'UNSEEN' ) );
@@ -50,3 +57,5 @@ class BlobImap {
 	return count( imap_search( $this->mConnection, 'ALL' ) );
     }
 } // end class
+
+
